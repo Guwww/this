@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this</title>
+</head>
+<body>
+    <script>
+        // 1.普通函数调用：this->window
+        function fn(){
+            console.log(this);  //window
+        }
+        fn();
+
+        // 2.构造函数调用： this ->实例对象
+        function Person(age,name){
+            this.age = age;
+            this.name = name;
+            console.log(this); //person
+        }
+        let p1 = new Person(18,'piz');
+
+        // 3.对象方法调用： this->该方法所属的对象
+        let obj = {
+            name:'leo',
+            fun:function(){
+                console.log(this); 
+            }
+        }
+        var obj1 = obj.fun;
+        obj1();  //window
+        obj.fun(); //obj
+
+        //多层对象
+        let list = {
+            a:'zz',
+            b:{
+                c:'oa',
+                func:function(){
+                    console.log(this,a);
+                    console.log(this);
+                }
+            }
+
+        };
+
+        let b1 = list.b.func;
+        b1(); //widnow  this永远指向的是最后调用它的对象，也就是看它执行的时候是谁调用的, 这里是list.b条用func  赋值给b1的时候没有执行  所以最终指向 window
+        list.b.func(); //b
+
+        // 情况1：如果一个函数中有this，但是它没有被上一级的对象所调用，那么this指向的就是window.
+
+        // 情况2：如果一个函数中有this，这个函数有被上一级的对象所调用，那么this指向的就是上一级的对象。
+
+        // 情况3：如果一个函数中有this，这个函数中包含多个对象，尽管这个函数是被最外层的对象所调用，this只指向它上一级的对象
+
+    </script>
+</body>
+</html>
+<!-- 
+
+
+
+
+
+ -->
