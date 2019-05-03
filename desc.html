@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>desc</title>
+</head>
+<body>
+
+	<div id="box"></div>
+<script type="text/javascript">
+//  全局环境：
+// 		window
+// 	事件处理函数：
+// 		DOM 事件处理函数
+// 		内联事件处理函数
+// 	call,apply,bind:
+// 		把this的值从一个执行环境传入另一个执行环境
+// 		如果传入的不是对象会调用相对的构造函数，进行隐式转换
+// 	bind:
+// 		返回一个新函数，内部this指向被修改
+// 		只会改变一次 
+
+
+
+
+//  箭头函数
+
+
+	var fn = () =>{  
+		console.log(this);
+	}
+	fn(); //1.与定义时的环境this一致。
+	//例1
+	box.onclick = function(){
+		setTimeout(()=>{
+			console.log(this); //这个this指向box
+		},1000)
+	};
+
+// 		1.与定义时的环境中this一致。
+// 			例1：-点击元素定时改变	
+
+
+
+	//例2：
+	var fn = () =>{  
+		console.log(this);
+	}	
+	var fn1 = fn.bind({});
+	fn1(); //this仍然指向window
+
+// 		例2：bind,call 不能修改箭头函数内部this指向
+// 		-全局中定义箭头函数
+// 			全局对象
+
+		var a = 1;
+		var obj = {
+			a : 2,
+			fn1:()=>{
+				console.log(this.a); //这个定义环境和obj环境一样 都在window中
+			},
+			fn2:function(){
+				console.log(this.a);
+			}
+		}
+		obj1.fn1(); //window
+		obj2.fn2(); //obj
+// 		对象内函数定义箭头函数
+
+		var a = 1;
+		var obj = {
+			a :2,
+			fn1:function(){
+				return function(){
+					console.log(this.a);  //1 window
+				}
+			},
+			fn2:()=>{
+				return ()=>{
+					console.log(this.a); //1 window
+				}
+			}
+		};
+		var innerFn1 = obj.fn1();
+		innerFn1();
+
+		obj.fn2()();
+// 		对象内函数返回箭头函数
+
+
+	// 对象方法内部		
+		//例1
+		var obj = {
+			a:2,
+			fn:function(){
+				console.log(this.a);
+			}
+		}
+		obj.fn();//obj 这里bind可以改变指向
+		obj.fn.bind({a:'momo'})(); //执行 momo
+		//1.
+		当函数作为对象里的方法被调用时
+			通用该函数的对象
+
+		//例2
+		var obj = {
+			a:1
+		}
+		obj.fn = fn;
+		var fn = function(){
+			console.log(this.a);
+		}
+
+		obj.fn1 = fn1;
+		var fn1 = ()=>{
+			console.log(this.a);
+		}
+
+		obj.fn(); //1 obj
+		obj.fn1() //undefined window
+
+		//2.
+		对象后续附属上的方法调用
+			调用该函数的对象
+
+		//例3：
+		var a = 1;
+		var obj = {
+			a:2,
+			o:{
+				a:3,
+				fn:function(){
+					console.log(this.a);
+				}
+			}
+		}	
+		obj.o.fn(); //1 window
+		作为函数内嵌套多层的方法调用
+			就近绑定
+
+	
+
+	构造函数
+		function Fn(){
+			this.a = 10;
+
+			// return 1; //返回非 null 的对象,那么实例化结果就是返回出的对象
+			return {};   //返回非 null 的对象,那么实例化结果就是返回出的对象
+		}
+
+		var f = new Fn();
+		console.log( f );
+
+		构造函数中没有显示return
+		构造函数中没有显示return	
+			return 对象
+			return 非对象
+
+	原型链上函数
+		调用该函数的对象
+
+
+	
+	getter 和 setter 中
+		get 访问
+		set 设置	
+
+
+
+</script>
+</body>
+</html>
