@@ -47,7 +47,7 @@
         let obj4 = obj3.fn2;
         obj4(); //window
         obj3.fn2(); //window
-        obj3.fn3.fn4();
+        obj3.fn3.fn4(); //window
 
 
         //多层对象
@@ -89,13 +89,13 @@
 
         
         let obj6 = {
-            say:function(){
-                setTimeout(()=>{
+            say:function(){  //function函数 this指向调用他的对象 ==> obj6
+                setTimeout(()=>{  //箭头函数内部 this指向定义它的环境==>指向say ==> obj6
                     console.log(this);
                 },1000);
             }
         }
-        obj6.say();
+        obj6.say(); //obj6
 
 
         var length = 10;
