@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Event</title>
+	<style type="text/css">
+		#box {
+			width: 400px;
+			height: 400px;
+			background: red;
+		}	
+		#box2 {
+			width: 300px;
+			height: 300px;
+			background: yellow;
+		}
+		#box3 {
+			width: 200px;
+			height: 200px;
+			background: green;
+		}
+	</style>
+</head>
+<body>
+<div id="box">
+	<div id="box2">
+		<div id="box3"></div>
+	</div>
+</div>
+<script type="text/javascript">
+(function(){
+	let box = document.querySelector('#box');
+	let box2 = document.querySelector('#box2');
+	let box3 = document.querySelector('#box3');
+	/*
+		事件流：
+			事件的执行过程
+			事件捕获--> 事件目标-->事件冒泡 
+		
+		事件捕获: 当页面发生事件的时候，会从顶层对象一层一层向下去查找发生事件的这个元素，在查找的过程中，如果元素有对应的事件就执行
+
+		事件目标
+
+		事件冒泡: 从当前开始会一直向上传递该事件，一直传递到顶层，在传递的过程中，如果元素有对应的事件就执行	
+
+	
+	*/
+	box.addEventListener('click', function(e) {
+		console.log(this.id,"捕获阶段");	
+	},true);
+	box2.addEventListener('click', function(e) {
+		console.log(this.id,"捕获阶段");	
+	},true);
+	box3.addEventListener('click', function(e) {
+		console.log(this.id,"捕获阶段");	
+	},true);
+	box.addEventListener('click', function(e) {
+		console.log(this.id,"冒泡阶段");	
+	},false);
+	box2.addEventListener('click', function(e) {
+		console.log(this.id,"冒泡阶段");	
+	},false);
+	box3.addEventListener('click', function(e) {
+		console.log(this.id,"冒泡阶段");	
+	},false);
+})();	
+</script>
+</body>
+
+
+<!-- 事件代理（事件委托）    基本应用：把事件绑定在祖父级上
+		优点：1.可以为将来元素绑定事件
+			  2.减少事件注册
+-->
+<div id="box">
+	<input type="button" value="1">
+	<input type="button" value="2">
+	<input type="button" value="3">
+	<input type="button" value="4">
+	<input type="button" value="5">
+</div>
+<script type="text/javascript">
+(function(){
+	let box = document.querySelector('#box');
+	document.body.addEventListener('click', function(e) {
+		// e.target 事件源(事件目标) 事件具体发生在哪个元素上
+		let btns = box.querySelectorAll('input');
+		if(e.target.tagName === "INPUT"){
+			// console.log(e.target.value);
+			btns.forEach((item)=>{
+				item.classList.remove("active");	
+			});
+			e.target.classList.add("active");
+		}
+	});
+	// IE下 只有 冒泡 没有捕获
+		//1s后添加新按钮
+	setTimeout(function(){
+		let newBtn = document.createElement("input");
+		newBtn.type = "button";
+		newBtn.value = "6";
+		box.appendChild(newBtn);
+	},1000);
+})();	
+</script>
+
+
+<!-- 事件对象：
+	保存调用该事件详细信息的一个参数，没有固定命名。
+
+	一些鼠标，键盘操作，可以根据事件对象判断。
+ -->
+<script type="text/javascript">
+document.addEventListener('mousedown', function(a) {
+	// 在标准下是事件函数的第0个参数
+	// 在IE下 window.event
+	// let e = e||event;
+	fn(a);
+});	
+function fn(event){
+	console.log(event);
+}
+</script>	
+
+
+<!-- 
+	事件绑定 onEvent 
+	事件监听addEventLister -->
+<script type="text/javascript">
+(function(){
+	let btn = document.querySelector('input');
+	// 事件绑定
+	// btn.onclick = function(e){
+	// 	console.log(1);
+	// };
+	// btn.onclick = function(e){
+	// 	console.log(2);
+	// };
+	// 事件监听
+	function fn(){
+		console.log(1);
+	}
+	btn.addEventListener('click', fn);  
+	btn.removeEventListener('click', fn);
+
+})();	
+</script>
+
+
+
+</html>
