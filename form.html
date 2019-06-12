@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">   
+    <title>HTML表单</title>
+    
+    <style type="text/css">
+        #txa {
+            width: 300px;
+            height: 200px;
+            margin-left: -12px;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="login">
+        
+        <input type="text" name="sex">             
+        <!--注释1-->      
+        <form action="/getinfo" method="get">     
+            <!--注释2-->         
+            <div class="username">                 
+                <!--注释3-->              
+                <label for="username">姓名</label>   
+                <!--注释4-->                
+                <input id="username"   type="text" name="username" value="Oliver">   
+                <!--注释5-->
+            </div>
+            
+            <div class="password">               
+                <label for="password">密码</label>              
+                <input id="password" type="password" name="password" placeholder="输入密码">     
+                <!--注释6-->
+
+            </div>
+            
+            <div class="sex">            
+                <label>性别</label>                                 
+                <!--注释7-->              
+                <input type="radio" name="sex" value="男" checked>男 
+                <!--注释8-->           
+                <input type="radio" name="sex" value="女">女       
+            </div>
+            
+            <div class="orientation">              
+                <label>取向</label>                
+                <input type="radio" name="orientation" value="男">男         
+                <input type="radio" name="orientation" value="女" checked>女     
+            </div>
+            
+            <div class="hobby">            
+                <label>爱好</label>               
+                <input type="checkbox" name="hobby[]" value="reading" checked>读书  
+                <!--注释9-->                
+                <input type="checkbox" name="hobby[]" value="tour" checked>旅游        
+                <input type="checkbox" name="hobby[]" value="design" checked>室内设计      
+            </div>
+            
+            <div>                
+                <label for="txa">评论：</label>             
+                <textarea id="txa" name="article">是个好人！</textarea>                                           
+                <!--注释10-->
+            </div>
+            
+            <div class="file">               
+                <input type="file" name="myfile" accept="image/png">   
+                <!--注释11-->
+            </div>       
+            <div class="mycar">               
+                <label>我的car</label>              
+                <select name="mycar">                                 
+                    <!--注释12-->                
+                    <option value="三菱">三菱</option>           
+                    <!--注释13-->                   
+                    <option value="奥迪" selected>奥迪</option>                
+                    <option value="MINI">MINI</option>
+                </select>
+                
+                <input type="submit" value="提交">                     
+                <!--注释14-->
+                
+                <input type="button" value="不提交">                   
+                <!--注释15-->
+                
+                <input type="reset" value="重置输入">                   
+                <!--注释16-->
+                
+                <input type="hidden" name="csrf" value="123456oliver"> 
+                <!--注释17-->
+            </div>
+        </form>
+    </div>
+
+    <script>
+        $(function () {
+
+            $('input[type=button]').click(function () {
+                //radio选择
+                var list = $('.orientation').find('input[type=radio]:checked').val();
+                
+                //select选择
+                var checks = $('.mycar').find('option:selected').val();
+                console.log(checks);
+                console.log(list);
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>

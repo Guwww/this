@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ES6解构赋值</title>
+</head>
+<body>
+    <script>
+        let fn1 = (function(){
+            let obj1 = 0;
+            return {
+                get1:function(){
+                    return obj1;
+                },
+                get2:function(){
+                    obj1 = obj1+1;
+                    return obj1;
+                }
+            }
+        })();
+
+        console.log(fn1.get1());
+        console.log(fn1.get2());
+        console.log(fn1.get2());
+
+    </script>    
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue component</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    
+<div id="app">
+    <my-component-a></my-component-a>
+</div>
+
+
+<script>
+    // //1.创建一个组件构造器
+    // let myComponenta = Vue.extend({
+    //     data:function(){
+    //         return {
+    //             count:0
+    //         }
+    //     },        
+    //     template:`<button v-on:click="count++">you click here {{count}} times</button>`
+
+    // });
+    // //2.祖册组件
+    // // Vue.component('my-component-a',myComponenta);
+
+    // let vm = new Vue({
+    //     el:'#app',
+    //     components:{
+    //         //2.将myComponenta组件祖册到Vue实例下。
+    //         'my-component-a':myComponenta
+    //     }
+    // });
+function f(){
+    console.log(typeof this);
+}
+
+let f1= f.bind(1).bind(2);
+let val = f1();
+
+
+</script>
+
+
+<script>
+// 注册组件3步骤：1创建组件构造器（Vue.extend({})），2注册组件（Vue.component()），使用组件。
+// 1.Vue.extend()  是Vue构造器的扩展，调用 Vue.extend() 创建的是一个组件构造器，而不是一个具体的组件实例。
+// 2.Vue.extend() 构造器有一个选项对象，选项对象的template属性用于定义组件要渲染的HTML。
+// 3.使用Vue.component()注册组件时，需要提供2个参数，第一个参数是组件标签，第2个参数是组件构造器。
+// 4.Vue.compoent() 方法内部会调用组件构造器，创建一个组件实例。
+// 5.组件应该挂载到某个Vue实例下，否则它不会生效。
+
+
+</script>
+
+</body>
+</html>
